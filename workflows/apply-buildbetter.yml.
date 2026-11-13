@@ -8,13 +8,14 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: android
       - name: Put Build Better into the source
         run: python3 tools/apply_buildbetter.py
       - name: Commit to the android branch
         run: |
           git config user.name "buildbetter-bot"
           git config user.email "buildbetter-bot@users.noreply.github.com"
-          git checkout -B android
           git add -A
           git commit -m "Add Build Better"
-          git push -f origin android
+          git push origin HEAD:android
